@@ -1,0 +1,108 @@
+# Note: Connection credentials/configs are hardcoded for local testing only. 
+# Ideally, these should be securely retrieved from a secret manager 
+# such as AWS SSM Parameter Store, AWS Secrets Manager, or Vault.
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    environment:
+      POSTGRES_USER: temporal
+      POSTGRES_PASSWORD: temporal 
+      POSTGRES_DB: temporal
+    ports:
+      - "55432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U temporal"]
+      interval: 5s
+      timeout: 5s
+      retries: 2
+
+  temporal:
+    image: temporalio/auto-setup:1.29
+    container_name: temporal
+    environment:
+      - DB=postgres12
+      - POSTGRES_SEEDS=postgres
+      - POSTGRES_USER=temporal
+      - POSTGRES_PWD=temporal
+      - DB_PORT=5432
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "7233:7233"
+    healthcheck:
+      test: ["CMD-SHELL", "temporal operator namespace list --address temporal:7233 | grep default"]
+      interval: 30s
+      timeout: 10s
+      retries: 2
+      start_period: 30s
+
+
+  temporal-web:
+    image: temporalio/ui:2.42.1
+    container_name: temporal-web
+    environment:
+      - TEMPORAL_ADDRESS=temporal:7233
+      - TEMPORAL_CORS_ORIGINS=http://localhost:3000
+    depends_on:
+      temporal:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: app
+    command: sh -c "npm run start"
+    environment:
+      - PORT=3000
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - SERVICE_URL=http://app:3000
+      - TEMPORAL_ADDRESS=temporal:7233
+      - NODE_ENV=docker
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      temporal:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+
+  worker:
+    build: .
+    container_name: worker
+    command: sh -c "npm run worker"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - SERVICE_URL=http://app:3000
+      - TEMPORAL_ADDRESS=temporal:7233
+      - NODE_ENV=docker
+    depends_on:
+      postgres:
+        condition: service_healthy
+      app:
+        condition: service_started
+      redis:
+        condition: service_healthy
+      temporal:
+        condition: service_healthy
