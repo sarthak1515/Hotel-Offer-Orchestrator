@@ -40,7 +40,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/api/hotels?city=delhi",
+          "raw": "http://localhost:3000/api/hotels?city=indore",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
@@ -48,7 +48,7 @@
           "query": [
             {
               "key": "city",
-              "value": "delhi"
+              "value": "indore"
             }
           ]
         }
@@ -64,7 +64,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/api/hotels?city=delhi",
+          "raw": "http://localhost:3000/api/hotels?city=delhi&minPrice=4600&maxPrice=6000",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
@@ -73,6 +73,14 @@
             {
               "key": "city",
               "value": "delhi"
+            },
+            {
+              "key": "minPrice",
+              "value": "4600"
+            },
+            {
+              "key": "maxPrice",
+              "value": "6000"
             }
           ]
         }
@@ -88,17 +96,11 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/api/hotels?city=delhi",
+          "raw": "http://localhost:3000/supplierA/hotels",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["api", "hotels"],
-          "query": [
-            {
-              "key": "city",
-              "value": "delhi"
-            }
-          ]
+          "path": ["supplierA", "hotels"]
         }
       },
       "response": []
@@ -112,17 +114,11 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/api/hotels?city=delhi",
+          "raw": "http://localhost:3000/supplierB/hotels",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["api", "hotels"],
-          "query": [
-            {
-              "key": "city",
-              "value": "delhi"
-            }
-          ]
+          "path": ["supplierB", "hotels"]
         }
       },
       "response": []
