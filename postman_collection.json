@@ -1,0 +1,131 @@
+{
+  "info": {
+    "_postman_id": "e54cf381-18d4-41d8-8061-ddc52f2ca281",
+    "name": "Hotel Offer Orchestrator",
+    "description": "The **Hotel Offer Orchestrator** is a service designed to aggregate and normalize hotel offers from multiple suppliers. It leverages **Temporal Workflows** for resilient orchestration and **Redis** for high-performance caching and price-based querying.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20440410"
+  },
+  "item": [
+    {
+      "name": "/api/hotels?city=delhi",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/hotels?city=delhi",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "hotels"],
+          "query": [
+            {
+              "key": "city",
+              "value": "delhi"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "city with no results",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/hotels?city=delhi",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "hotels"],
+          "query": [
+            {
+              "key": "city",
+              "value": "delhi"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/api/hotels?city=delhi&minPrice=4600&maxPrice=6000",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/hotels?city=delhi",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "hotels"],
+          "query": [
+            {
+              "key": "city",
+              "value": "delhi"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/supplierA/hotels",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/hotels?city=delhi",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "hotels"],
+          "query": [
+            {
+              "key": "city",
+              "value": "delhi"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/supplierB/hotels",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/hotels?city=delhi",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "hotels"],
+          "query": [
+            {
+              "key": "city",
+              "value": "delhi"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

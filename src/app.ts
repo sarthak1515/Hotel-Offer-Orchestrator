@@ -24,9 +24,9 @@ app.use((req: Request, res: Response, next) => {
   }
   next();
 });
-app.use("/api/v1/hotels", hotelsRouter);
+app.use("/api/hotels", hotelsRouter);
 app.use((req: Request, res: Response, next: NextFunction) => {
-  next(Object.assign("Route not found.", { status: 404 }));
+  next(Object.assign(new Error("Route not found."), { status: 404 }));
 });
 
 app.use(errorHandler);

@@ -22,10 +22,16 @@ Before running this service, ensure **Docker** is installed and running on your 
 **Install Docker:**  
 [https://www.docker.com/get-started/](https://www.docker.com/get-started/)
 
-### Then follow these steps
+### Steps to Run the Service
 
 ```bash
 git clone <repo-url>
 cd hotel-offer-orchestrator
 docker compose up --build
 ```
+
+### Testing the Service
+
+Open Postman.
+Import the Postman collection available in the root directory of this project.
+Use the imported requests to test the endpoints.
