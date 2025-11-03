@@ -35,7 +35,20 @@ export async function hotelOrchestrator(city: string): Promise<Hotel[]> {
   const pushIfBetterPrice = (h: SupplierHotelOffer) => {
     const key = h.name.trim().toLowerCase();
     const existing = map.get(key);
-    if (!existing || h.price < existing.price) map.set(key, h);
+    if (!existing) {
+      map.set(key, h);
+      return;
+    }
+
+    const priceDiff = Math.abs(existing.price - h.price);
+    const priceDiffPct = priceDiff / existing.price;
+
+    if (
+      (priceDiffPct <= 0.1 && h.commissionPct > existing.commissionPct) ||
+      (priceDiffPct > 0.1 && h.price < existing.price)
+    ) {
+      map.set(key, h);
+    }
   };
 
   supplierAData.forEach(pushIfBetterPrice);

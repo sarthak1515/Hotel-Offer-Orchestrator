@@ -7,6 +7,7 @@ export const supplierAMockData: SupplierHotelOffer[] = [
     price: 6000,
     city: "delhi",
     commissionPct: 10,
+    // Supplier B → Savoy @5340 (≈11% cheaper) -> B wins
   },
   {
     hotelId: "391d2965-ea29-4815-b421-3e803eab5a78",
@@ -14,6 +15,7 @@ export const supplierAMockData: SupplierHotelOffer[] = [
     price: 5900,
     city: "delhi",
     commissionPct: 13,
+    // Supplier B → Radisson @5500 (≈6.8% cheaper) → choose higher commission -> A wins
   },
   {
     hotelId: "ebf8e90c-b90c-49f9-9ebc-f3d9d3429b6c",
@@ -21,6 +23,7 @@ export const supplierAMockData: SupplierHotelOffer[] = [
     price: 3200,
     city: "mumbai",
     commissionPct: 12,
+    // Supplier B → Marriott @6500 (≈103% more expensive)-> A wins
   },
 ];
 
@@ -35,15 +38,15 @@ export const supplierBMockData: SupplierHotelOffer[] = [
   {
     hotelId: "40532dca-bace-4da5-8953-6d021893b3a3",
     name: "Radisson",
-    price: 4500,
+    price: 5500,
     city: "delhi",
-    commissionPct: 15,
+    commissionPct: 11,
   },
   {
     hotelId: "2f2546d4-d92a-47bb-aec2-b6a236e23c66",
     name: "Marriott",
     price: 6500,
-    city: "delhi",
+    city: "mumbai",
     commissionPct: 11,
   },
   {
